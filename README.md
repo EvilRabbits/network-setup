@@ -60,7 +60,7 @@ ip -o -4 route list default | cut -d" " -f5
 
 Включаем **IPv4 Forwarding**:
 
-Раскомментируем ручками строку с **net.ipv4.ip_forward=1** в **/etc/sysctl.conf** или с помощью комманды:
+Раскомментируем ручками строку с **net.ipv4.ip_forward=1** в **/etc/sysctl.conf** или с помощью команды:
 
 ```
 sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
@@ -148,7 +148,7 @@ wg-quick up wg0
 exit
 ```
 
-Изменяем конфиг клиента **peer1.conf**. Добавляем приватный ключ клиента **peer1.key**, порт 49999 и меням **AllowedIPs** на 0.0.0.0/0:
+Изменяем конфиг клиента **peer1.conf**. Добавляем приватный ключ клиента **peer1.key**, порт **49999** и меняем **AllowedIPs** на 0.0.0.0/0:
 
 ```
 [Interface]
