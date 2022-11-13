@@ -127,6 +127,9 @@ echo "PresharedKey = "(cat peer1.psk) >> peer1.conf
 ```
 sudo -i
 cd /etc/wireguard
+echo "[Interface]" >> wg0.conf
+echo "Address = 10.254.0.2/32" >> wg0.conf
+
 echo >> wg0.conf && echo "[Peer]" >> wg0.conf
 echo "AllowedIPs = 10.254.0.2/32" >> wg0.conf
 
@@ -160,9 +163,3 @@ Endpoint = 123.45.67.89:49999
 AllowedIPs = 0.0.0.0/0
 PublicKey = gu/22X5fwJ123sd8u2ropqvR3sSlsdfl2342mn1FDf=
 ```
-
-
-
-
-
-
