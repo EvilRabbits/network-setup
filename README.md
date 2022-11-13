@@ -103,7 +103,7 @@ vim peer1.conf
 ```
 echo "PrivateKey = $(cat peer1.key)" >> peer1.conf
 # Для fish
-echo "PrivateKey = "(cat server.key) >> peer1.conf
+echo "PrivateKey = "(cat peer1.key) >> peer1.conf
 ```
 
 Также добавляем детали подключения к серверу:
