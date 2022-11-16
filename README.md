@@ -175,3 +175,42 @@ Endpoint = 123.45.67.89:49999
 AllowedIPs = 0.0.0.0/0
 PublicKey = gu/22X5fwJ123sd8u2ropqvR3sSlsdfl2342mn1FDf=
 ```
+
+
+## WireGuard client on Debian
+
+```
+apt update && apt full-upgrade
+apt install wireguard
+```
+
+Копируем конфиг клиента **peer1.conf** через [transfer.sh](https://transfer.sh/):
+
+```
+wget https://transfer.sh/123456/peer1.conf
+mv peer1.conf /etc/wireguard/wg0.conf
+```
+
+Включаем WireGuard сервер:
+
+```
+wg-quick up wg0
+```
+
+Включаем WireGuard сервер при запуске системы через systemd manager:
+
+```
+systemctl enable wg-quick@wg0
+```
+
+Убедиться что всё работает можно так:
+
+```
+watch wg
+```
+
+Если надо выключить WireGuard сервер:
+
+```
+wg-quick down wg0
+```
