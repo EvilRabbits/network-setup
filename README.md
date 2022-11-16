@@ -48,8 +48,11 @@ echo "PrivateKey = "(cat server.key) >> /etc/wireguard/wg0.conf
 Включаем **NAT**:
 
 ```
-PostUp = iptables -I FORWARD 1 -i wg0 -j ACCEPT; iptables -t nat -I POSTROUTING 1 -o eth0 -j MASQUERADE
-PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
+echo "PostUp = iptables -A FORWARD -i eth0 -o wg0 -j ACCEPT; iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE; ip6tables -A FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -A POSTROUTING -o eth0 -j MASQUERADE" >> /etc/wireguard/wg0.conf
+```
+
+```
+echo "PostDown = iptables -D FORWARD -i eth0 -o wg0 -j ACCEPT; iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE; ip6tables -D FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -D POSTROUTING -o eth0 -j MASQUERADE" >> /etc/wireguard/wg0.conf
 ```
 
 Если сервер не использует **eth0**, то вместо **eth0** вставляем название, которое можно получить из вывода:
@@ -64,6 +67,15 @@ ip -o -4 route list default | cut -d" " -f5
 
 ```
 sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
+```
+
+Также сделаем с **net.ipv6.conf.all.forwarding=1**:
+
+```
+sed -i 's/#net.ipv6.conf.all.forwarding=1/net.ipv6.conf.all.forwarding=1/' /etc/sysctl.conf
+```
+
+```
 sysctl -p
 ```
 
