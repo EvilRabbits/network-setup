@@ -177,7 +177,7 @@ PublicKey = gu/22X5fwJ123sd8u2ropqvR3sSlsdfl2342mn1FDf=
 ```
 
 
-## WireGuard client on Debian
+## WireGuard client on Debian LXC Container
 
 ```
 apt update && apt full-upgrade
@@ -207,10 +207,25 @@ systemctl enable wg-quick@wg0
 
 ```
 watch wg
+ip a
 ```
 
 Если надо выключить WireGuard сервер:
 
 ```
 wg-quick down wg0
+```
+
+### Создаём нового пользователя **user** для доступа через **ssh**:
+
+```
+useradd user
+passwd user
+```
+
+Устанавливаем **sudo** и добавляем пользователя в группу:
+
+```
+apt install sudo
+usermod -aG sudo user
 ```
